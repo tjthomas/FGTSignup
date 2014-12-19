@@ -1,0 +1,50 @@
+<script>window.jQuery || document.write('<script src="jquery-1.10.2.min.js"><\/script>')</script>
+<html>
+    <body>
+        <div id="signup" style="height: 250px; width: 300px; border: 10px solid #8c316d;
+         border-radius: 10px; margin: 10px; text-align: center; background-color: #efe98d;
+         font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+         font-weight: 300;">
+            <h1 style="width: 100%; font-size: 20px; text-align: center; background-color:
+             #8c316d; color: white; margin: 0; padding: 0; padding-bottom: 8px;">
+                Sign-up to Donate Gifts or Volunteer to Pickup/Deliver!</h1>
+            <p style="margin: 0">
+            <input style="margin: 5px; font-size: 16px; width: 80%; height: 35px;" id="email" name="email" type="text" placeholder="email">
+            <input style="margin: 5px; margin-bottom:20px;font-size: 16px; width: 80%; height: 35px;" id="password" name="password" type="password" placeholder="password"></p>
+            <input type="checkbox" checked disabled="True"> I want to Donate! <i style="color: rgb(150,150,150)">(all)</i><br>
+            <input type="checkbox" id="driver" > I want to Volunteur! <br>
+            <button id="submit" style="margin-top: 10px;height: 30px; width: 80px; background-color: #9d4d5f; border: none; color: white">Submit</button>
+            <script>
+                $("#submit").click(function(){
+                    var username = $("#email").val()
+                    var password = $("#password").val()
+                    var driver = ($("#driver").val() === "on")
+                    alert($("#driver").checked())
+                    if (username == null || username === "" || password == null || password === ""){
+                        alert("Email and Password must not be empty!")
+                        return
+                    }
+                    var appId = "LdJQPv5TdX8f7W93mAO8FkpcEqe55ciGomTOH4es"
+                    var restApiKey = "znwXNiUYibr3bEF7uRPRAXaaaVTNm116T0bzWhEk"
+                    var parseUrl = "https://api.parse.com/1/users"
+                    var data = "{\"username\": \""+username+"\", \"password\": \""+password+"\", \"isDriver\": "+driver+"}";
+                    var headers = {'X-Parse-Application-Id': appId,
+                                    'X-Parse-REST-API-Key': restApiKey,
+                                    'Content-Type': 'application/json' }
+                    $.ajax({
+                        url: parseUrl,
+                        type: 'POST',
+                        data: data,
+                        headers: headers,
+                        complete: function(data){
+                            if (data.status == 201)
+                                alert("Account Created!")
+                            else
+                                alert("Account not created. An account already exists with that username.")
+                        }});
+                })
+            </script>
+        </div>
+    </body>
+</html>
+
