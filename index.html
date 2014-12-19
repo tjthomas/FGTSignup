@@ -18,7 +18,7 @@
                 $("#submit").click(function(){
                     var username = $("#email").val()
                     var password = $("#password").val()
-                    var driver = $("#driver")[0].checked
+                    var driver = ($("#driver").val() === "on")
                     if (username == null || username === "" || password == null || password === ""){
                         alert("Email and Password must not be empty!")
                         return
